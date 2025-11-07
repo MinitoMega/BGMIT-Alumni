@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BGMIT Alumni Portal - Connect, Network, and Grow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-closed {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.open {
+            display: block;
+        }
+        
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 flex items-center">
+          <!-- ✅ Replaced with your college logo -->
+          <img src="bgmit_logo.jpg" alt="BGMIT Logo" class="h-10 w-10 object-contain" />
+          <span class="ml-2 text-xl font-bold text-blue-800">AlumniConnect</span>
+        </div>
+                    <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <a href="#home" class="text-gray-900 hover:text-blue-700 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#directory" class="text-gray-500 hover:text-blue-700 px-3 py-2 text-sm font-medium">Directory</a>
+                        <a href="#events" class="text-gray-500 hover:text-blue-700 px-3 py-2 text-sm font-medium">Events</a>
+                        <a href="#jobs" class="text-gray-500 hover:text-blue-700 px-3 py-2 text-sm font-medium">Careers</a>
+                        <a href="#news" class="text-gray-500 hover:text-blue-700 px-3 py-2 text-sm font-medium">News</a>
+                    </div>
+                </div>
+                <div class="flex items-center" id="navButtons">
+                    <button onclick="toggleLoginModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium mr-2">
+                        Sign In
+                    </button>
+                    <button onclick="toggleRegisterModal()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        Join Now
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="md:hidden ml-4">
+                        <i class="fas fa-bars text-gray-600"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block text-gray-900 hover:text-blue-700 px-3 py-2 text-base font-medium" onclick="toggleMobileMenu()">Home</a>
+                <a href="#directory" class="block text-gray-500 hover:text-blue-700 px-3 py-2 text-base font-medium" onclick="toggleMobileMenu()">Directory</a>
+                <a href="#events" class="block text-gray-500 hover:text-blue-700 px-3 py-2 text-base font-medium" onclick="toggleMobileMenu()">Events</a>
+                <a href="#jobs" class="block text-gray-500 hover:text-blue-700 px-3 py-2 text-base font-medium" onclick="toggleMobileMenu()">Careers</a>
+                <a href="#news" class="block text-gray-500 hover:text-blue-700 px-3 py-2 text-base font-medium" onclick="toggleMobileMenu()">News</a>
+            </div>
+        </div>
+    </nav>
+
+   <!-- Hero Section -->
+<section id="home" class="relative bg-cover bg-center bg-no-repeat pt-24 pb-20 text-white" 
+    style="background-image: url('bgmitlogo.webp');">
+    <!-- Overlay for readability -->
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Welcome to BGMIT Alumni Community
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                Reconnect with old friends, discover new opportunities, and stay engaged with your alma mater.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="toggleRegisterModal()" 
+                    class="bg-white text-blue-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+                    Join Now
+                </button>
+                <button onclick="scrollToSection('features')" 
+                    class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-700 transition duration-300">
+                    Explore Features
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Connect and Grow Together</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature 1 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Network</h3>
+                    <p class="text-gray-600">Connect with alumni across different industries and locations worldwide.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-briefcase text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Career Opportunities</h3>
+                    <p class="text-gray-600">Find job postings, mentorship programs, and career development resources.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-calendar-alt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Events</h3>
+                    <p class="text-gray-600">Attend reunions, webinars, and networking events both online and in-person.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-md text-center">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-graduation-cap text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Give Back</h3>
+                    <p class="text-gray-600">Support current students through mentorship and scholarship opportunities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Directory Preview -->
+    <section id="directory" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Alumni Directory</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Discover and connect with fellow alumni from your graduating class and beyond.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Alumni Card 1 -->
+                <div class="card-hover bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="w-full h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-user text-blue-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Suhas M</h3>
+                        <p class="text-gray-600 mb-2">Computer Science And Engineering</p>
+                        <p class="text-blue-600 mb-4">Student</p>
+                        <div class="flex space-x-2">
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Mentoring</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Networking</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alumni Card 2 -->
+                <div class="card-hover bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="w-full h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-user-md text-green-500 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Ramesht T</h3>
+                        <p class="text-gray-600 mb-2">Computer Science And Engineering</p>
+                        <p class="text-blue-600 mb-4">Student</p>
+                        <div class="flex space-x-2">
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Healthcare</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Research</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alumni Card 3 -->
+                <div class="card-hover bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="w-full h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-user-tie text-purple-500 text-6xl"></i>
+                    </div>              
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sanjana K</h3>
+                        <p class="text-gray-600 mb-2">Computer Science And Engineering</p>
+                        <p class="text-blue-600 mb-4">Student</p>
+                        <div class="flex space-x-2">
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Entrepreneurship</span>
+                            <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">Startups</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <button onclick="toggleLoginModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold">
+                    Join to Access Full Directory
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
+                <p class="text-xl text-gray-600">Stay connected through our alumni events and activities</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event 1 -->
+                <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="w-full h-48 bg-blue-200 flex items-center justify-center">
+                            <i class="fas fa-university text-blue-600 text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-lg">
+                            <span class="font-bold">Jun 15</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">College Bird View</h3>
+                        <p class="text-gray-600 mb-4">Join us for a night of networking, dinner, and memories at the main campus.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fas fa-map-marker-alt mr-2"></i>Main Campus</span>
+                            <button onclick="toggleEventModal()" class="text-blue-600 hover:text-blue-800 font-semibold">
+                                Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="w-full h-48 bg-green-200 flex items-center justify-center">
+                            <i class="fas fa-tree text-green-600 text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-lg">
+                            <span class="font-bold">Jul 22</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Plantation Drive</h3>
+                        <p class="text-gray-600 mb-4">Join our green initiative to plant trees and contribute to a sustainable campus.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fas fa-clock mr-2"></i>9:00 AM</span>
+                            <button onclick="toggleEventModal()" class="text-blue-600 hover:text-blue-800 font-semibold">
+                                Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="relative">
+                        <div class="w-full h-48 bg-purple-200 flex items-center justify-center">
+                            <i class="fas fa-star text-purple-600 text-6xl"></i>
+                        </div>
+                        <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-lg">
+                            <span class="font-bold">Aug 10</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">College Main Event</h3>
+                        <p class="text-gray-600 mb-4">Annual cultural fest with performances, competitions, and alumni meet.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500"><i class="fas fa-video mr-2"></i>Main Auditorium</span>
+                            <button onclick="toggleEventModal()" class="text-blue-600 hover:text-blue-800 font-semibold">
+                                Details →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Opportunities -->
+    <section id="jobs" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Career Opportunities</h2>
+                <p class="text-xl text-gray-600">Exclusive job postings for our alumni community</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Job 1 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-code text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Senior Frontend Developer</h3>
+                            <p class="text-blue-600">TechInnovate Inc.</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Looking for experienced React developers to join our growing team. Remote work options available.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">React</span>
+                        <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">TypeScript</span>
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Remote</span>
+                    </div>
+                    <button onclick="toggleLoginModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">
+                        Apply Now
+                    </button>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="card-hover bg-white p-6 rounded-xl shadow-md">
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center mr-4">
+                            <i class="fas fa-chart-line text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Financial Analyst</h3>
+                            <p class="text-blue-600">Global Finance Partners</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">Join our investment team analyzing market trends and providing strategic financial guidance.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Finance</span>
+                        <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Analysis</span>
+                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm">MBA Preferred</span>
+                    </div>
+                    <button onclick="toggleLoginModal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold">
+                        Apply Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Alumni News & Updates</h2>
+                <p class="text-xl text-gray-600">Stay informed about our community's achievements and activities</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- News 1 -->
+                <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="w-full h-48 bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-flask text-blue-600 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-blue-600 font-semibold">RESEARCH • June 12, 2024</span>
+                        <h3 class="text-xl font-semibold my-3">Alumni Research Team Makes Breakthrough in Renewable Energy</h3>
+                        <p class="text-gray-600">Dr. Lisa Park's team develops innovative solar technology that could revolutionize clean energy.</p>
+                    </div>
+                </div>
+
+                <!-- News 2 -->
+                <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="w-full h-48 bg-green-100 flex items-center justify-center">
+                        <i class="fas fa-hand-holding-usd text-green-600 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-green-600 font-semibold">GIVING • May 28, 2024</span>
+                        <h3 class="text-xl font-semibold my-3">Alumni Association Donates $2M for Student Scholarships</h3>
+                        <p class="text-gray-600">Generous contributions from our alumni community will support 100+ students next academic year.</p>
+                    </div>
+                </div>
+
+                <!-- News 3 -->
+                <div class="card-hover bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="w-full h-48 bg-purple-100 flex items-center justify-center">
+                        <i class="fas fa-rocket text-purple-600 text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-sm text-purple-600 font-semibold">SUCCESS • May 15, 2024</span>
+                        <h3 class="text-xl font-semibold my-3">Alumni Startup Secures $10M in Series A Funding</h3>
+                        <p class="text-gray-600">Tech company founded by recent graduates reaches major milestone in their growth journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="h-10 w-10 mb-4 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        BGMIT
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">AlumniConnect</h3>
+                    <p class="text-gray-400">Connecting generations of graduates since 2013.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#directory" class="text-gray-400 hover:text-white">Directory</a></li>
+                        <li><a href="#events" class="text-gray-400 hover:text-white">Events</a></li>
+                        <li><a href="#jobs" class="text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#news" class="text-gray-400 hover:text-white">News</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Mentorship Program</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Career Services</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Scholarships</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <p class="text-gray-400 mb-2">bvvsbgmitm@gmail.com</p>
+                    <p class="text-gray-400">08350-280404</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 BGMIT Alumni Association. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal-closed fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Sign In</h3>
+                <button onclick="toggleLoginModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="loginForm">
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Email</label>
+                    <input type="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Password</label>
+                    <input type="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 mb-4">
+                    Sign In
+                </button>
+                <div class="text-center">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal-closed fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-md w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Create Account</h3>
+                <button onclick="toggleRegisterModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="registerForm">
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">First Name</label>
+                        <input id="firstName" type="text" name="firstName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Last Name</label>
+                        <input id="lastName" type="text" name="lastName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Email</label>
+                    <input id="email" type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Graduation Year</label>
+                    <input id="gradYear" type="number" name="gradYear" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Major/Department</label>
+                    <input id="department" type="text" name="department" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 mb-2">Password</label>
+                    <input id="password" type="password" name="password" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- OTP Verification Modal -->
+<div id="otpModal" class="modal-closed fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-xl max-w-md w-full p-6">
+    <div class="flex justify-between items-center mb-6">
+      <h3 class="text-2xl font-bold text-gray-900">Verify Email</h3>
+      <button onclick="toggleOtpModal()" class="text-gray-400 hover:text-gray-600">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <p class="text-gray-600 mb-4">
+      We’ve sent a 6-digit OTP to your email. Please enter it below to verify your account.
+    </p>
+    <form id="otpForm">
+      <div class="mb-4">
+        <label class="block text-gray-700 mb-2">Enter OTP</label>
+        <input id="otpCode" type="text" maxlength="6" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+      </div>
+      <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
+        Verify OTP
+      </button>
+    </form>
+    <p class="text-sm text-center text-gray-500 mt-4">
+      Didn’t get the code? 
+      <button onclick="resendOtp()" class="text-blue-600 hover:text-blue-800 font-semibold">Resend OTP</button>
+    </p>
+  </div>
+</div>
+
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal-closed fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-gray-900">Event Details</h3>
+                <button onclick="toggleEventModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="mb-6">
+                <div class="w-full h-64 bg-blue-200 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-calendar-alt text-blue-600 text-8xl"></i>
+                </div>
+            </div>
+            <h4 class="text-xl font-semibold mb-4">Annual Alumni Reunion 2024</h4>
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div>
+                    <p class="text-gray-600 mb-2"><i class="fas fa-calendar-alt mr-2"></i>June 15, 2024</p>
+                    <p class="text-gray-600 mb-2"><i class="fas fa-clock mr-2"></i>6:00 PM - 11:00 PM</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-2"></i>University Main Campus</p>
+                    <p class="text-gray-600"><i class="fas fa-users mr-2"></i>200+ attendees expected</p>
+                </div>
+            </div>
+            <p class="text-gray-700 mb-6">
+                Join us for our annual alumni reunion! This is a fantastic opportunity to reconnect with old friends,
+                meet new alumni, and celebrate our shared university experience. The evening will include dinner,
+                drinks, networking opportunities, and special recognition of milestone graduation years.
+            </p>
+            <button onclick="toggleLoginModal()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">
+                RSVP Now
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // API Base URL - Change this if your backend is on a different port
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        function toggleOtpModal() {
+  const modal = document.getElementById('otpModal');
+  modal.classList.toggle('modal-closed');
+  modal.classList.toggle('modal-open');
+}
+
+async function resendOtp() {
+  const email = localStorage.getItem('tempEmail');
+  if (!email) return alert('Please register again.');
+
+  const res = await fetch(`${API_BASE_URL}/send-otp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email })
+  });
+  const result = await res.json();
+  alert(result.message || 'OTP resent successfully.');
+}
+
+document.getElementById('registerForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const userData = Object.fromEntries(formData.entries());
+
+  // Save email temporarily for OTP verification
+  localStorage.setItem('tempEmail', userData.email);
+
+  const res = await fetch(`${API_BASE_URL}/send-otp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: userData.email })
+  });
+  const data = await res.json();
+
+  if (res.ok) {
+    toggleRegisterModal();
+    toggleOtpModal();
+  } else {
+    alert(data.message || 'Failed to send OTP.');
+  }
+});
+
+// Verify OTP
+document.getElementById('otpForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const otp = document.getElementById('otpCode').value;
+  const email = localStorage.getItem('tempEmail');
+
+  const res = await fetch(`${API_BASE_URL}/verify-otp`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, otp })
+  });
+  const data = await res.json();
+
+  if (res.ok) {
+    alert('Email verified! You can now log in.');
+    toggleOtpModal();
+  } else {
+    alert(data.message || 'Invalid OTP.');
+  }
+});
+
+
+        // Modal functionality
+        function toggleLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.classList.toggle('modal-closed');
+            modal.classList.toggle('modal-open');
+        }
+
+        function toggleRegisterModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.toggle('modal-closed');
+            modal.classList.toggle('modal-open');
+        }
+
+        function toggleEventModal() {
+            const modal = document.getElementById('eventModal');
+            modal.classList.toggle('modal-closed');
+            modal.classList.toggle('modal-open');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('open');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const eventModal = document.getElementById('eventModal');
+            
+            if (event.target === loginModal) {
+                toggleLoginModal();
+            }
+            
+            if (event.target === registerModal) {
+                toggleRegisterModal();
+            }
+            
+            if (event.target === eventModal) {
+                toggleEventModal();
+            }
+        });
+
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const offsetTop = element.offsetTop - 80;
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            // Test backend connection
+            testBackendConnection();
+
+            // Login form
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(loginForm);
+                    const data = {
+                        email: formData.get('email'),
+                        password: formData.get('password')
+                    };
+
+                    const submitBtn = loginForm.querySelector('button[type="submit"]');
+                    submitBtn.textContent = 'Signing In...';
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/login`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        const result = await response.json();
+
+                        if (result.success) {
+                            alert('Login successful!');
+                            localStorage.setItem('user', JSON.stringify(result.user));
+                            toggleLoginModal();
+                            loginForm.reset();
+                            updateUIAfterLogin(result.user);
+                        } else {
+                            alert('Login failed: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Login error:', error);
+                        alert('Login failed. Please check your connection and try again.');
+                    } finally {
+                        submitBtn.textContent = 'Sign In';
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            
+            // Register form
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                registerForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(registerForm);
+                    const data = {
+                        firstName: formData.get('firstName'),
+                        lastName: formData.get('lastName'),
+                        email: formData.get('email'),
+                        gradYear: parseInt(formData.get('gradYear')),
+                        department: formData.get('department'),
+                        password: formData.get('password')
+                    };
+
+                    console.log('Sending registration data:', data);
+
+                    const submitBtn = registerForm.querySelector('button[type="submit"]');
+                    submitBtn.textContent = 'Creating Account...';
+                    submitBtn.disabled = true;
+
+                    try {
+                        const response = await fetch(`${API_BASE_URL}/register`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        console.log('Response status:', response.status);
+
+                        const result = await response.json();
+                        console.log('Response result:', result);
+
+                        if (result.success) {
+                            alert('Account created successfully!');
+                            localStorage.setItem('user', JSON.stringify(result.user));
+                            toggleRegisterModal();
+                            registerForm.reset();
+                            updateUIAfterLogin(result.user);
+                        } else {
+                            alert('Registration failed: ' + result.message);
+                        }
+                    } catch (error) {
+                        console.error('Registration error:', error);
+                        alert('Registration failed: ' + error.message + '. Please check if backend is running.');
+                    } finally {
+                        submitBtn.textContent = 'Create Account';
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+            
+            // Active navigation highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('text-gray-900');
+                    link.classList.add('text-gray-500');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.remove('text-gray-500');
+                        link.classList.add('text-gray-900');
+                    }
+                });
+            });
+
+            // Check if user is already logged in
+            checkLoginStatus();
+        });
+
+        async function testBackendConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const result = await response.json();
+                console.log('✅ Backend connection successful:', result);
+            } catch (error) {
+                console.error('❌ Backend connection failed:', error);
+                console.log('Please make sure the backend server is running on port 5000');
+            }
+        }
+
+        function updateUIAfterLogin(user) {
+            const navButtons = document.getElementById('navButtons');
+            if (navButtons) {
+                navButtons.innerHTML = `
+                    <span class="text-gray-700 mr-4 hidden md:inline">Welcome, ${user.firstName}!</span>
+                    <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        Logout
+                    </button>
+                `;
+            }
+        }
+
+        function checkLoginStatus() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                updateUIAfterLogin(JSON.parse(user));
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            location.reload();
+        }
+        
+    </script>
+</body>
+</html>

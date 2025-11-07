@@ -1,0 +1,24 @@
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .login-modal, .event-modal, .profile-modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal-open {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .modal-closed {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+    
